@@ -9,7 +9,8 @@
 spring-shell.log
 
 # User-specific stuff
-.idea/**/workspace.xml
+*.iml
+.idea/**
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
