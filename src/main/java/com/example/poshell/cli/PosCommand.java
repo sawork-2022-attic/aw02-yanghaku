@@ -1,6 +1,7 @@
 package com.example.poshell.cli;
 
 import com.example.poshell.biz.PosService;
+import com.example.poshell.model.Cart;
 import com.example.poshell.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -41,7 +42,7 @@ public class PosCommand {
 
     @ShellMethod(value = "Empty the Current Cart", key = "e")
     public String emptyCart() {
-        return posService.emptyCart() ? "OK" : "ERROR";
+        return posService.emptyCart() + " OK";
     }
 
     @ShellMethod(value = "Delete a Product from the Current Cart", key = "d")
@@ -60,8 +61,10 @@ public class PosCommand {
         return "ERROR";
     }
 
-    @ShellMethod(value = "Print the Current Cart", key = "p")
+    @ShellMethod(value = "Print the Current Cart", key = "c")
     public String printCart() {
-        return posService.getCart().toString();
+        Cart cart = posService.getCart();
+        if (cart == null) return newCart();
+        return cart.toString();
     }
 }

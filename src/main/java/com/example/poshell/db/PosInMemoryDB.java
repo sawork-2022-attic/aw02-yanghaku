@@ -39,6 +39,29 @@ public class PosInMemoryDB implements PosDB {
         return null;
     }
 
+    @Override
+    public boolean modifyCart(String productId, int amount) {
+        for (int i = 0; i < cart.getItems().size(); ++i) {
+            if (cart.getItems().get(i).getProduct().getId().equals(productId)) {
+                cart.getItems().get(i).getProduct().setId(productId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteProduct(String productId) {
+        for (int i = 0; i < cart.getItems().size(); ++i) {
+            if (cart.getItems().get(i).getProduct().getId().equals(productId)) {
+                cart.getItems().remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private PosInMemoryDB() {
         this.products.add(new Product("PD1", "iPhone 13", 8999));
         this.products.add(new Product("PD2", "MacBook Pro", 29499));

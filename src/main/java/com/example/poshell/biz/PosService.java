@@ -18,7 +18,7 @@ public interface PosService {
 
     public boolean add(String productId, int amount);
 
-    public boolean emptyCart();
+    public Cart emptyCart();
 
     public boolean delete(String productId);
 

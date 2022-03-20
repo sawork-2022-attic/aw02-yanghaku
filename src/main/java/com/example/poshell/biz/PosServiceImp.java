@@ -53,7 +53,6 @@ public class PosServiceImp implements PosService {
 
     @Override
     public boolean add(String productId, int amount) {
-
         Product product = posDB.getProduct(productId);
         if (product == null) return false;
         if (amount <= 0) return false;
@@ -63,34 +62,20 @@ public class PosServiceImp implements PosService {
     }
 
     @Override
-    public boolean emptyCart() {
-        return false;
+    public Cart emptyCart() {
+        return newCart();
     }
 
     @Override
     public boolean delete(String productId) {
-        List<Item> items = posDB.getCart().getItems();
-        for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getProduct().getId().equals(productId)) {
-                posDB.getCart().getItems().remove(i);
-                return true;
-            }
-        }
-        return false;
+        return posDB.deleteProduct(productId);
     }
 
     @Override
     public boolean modify(String productId, int amount) {
         if (amount < 0) return false;
         if (amount == 0) return delete(productId);
-        List<Item> items = posDB.getCart().getItems();
-        for (Item item : items) {
-            if (item.getProduct().getId().equals(productId)) {
-                item.setAmount(amount);
-                return true;
-            }
-        }
-        return false;
+        return posDB.modifyCart(productId, amount);
     }
 
     @Override
